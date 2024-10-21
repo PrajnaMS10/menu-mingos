@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './styles.css';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
         username: '',
-        userId: '',
+        usn: '',
         mail: '',
         password: '',
     });
@@ -16,10 +18,16 @@ const Signup = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle the form submission logic
-        console.log('Form data submitted:', formData);
+        try {
+            const res = await axios.post('http://localhost:5000/api/auth/signup', formData);
+            localStorage.setItem('token', res.data.token); // Store token in local storage
+            alert('Signup successful');
+            window.location.href = '/restaurant'; // Redirect to the restaurant page
+        } catch (err) {
+            alert('Error signing up: ' + (err.response ? err.response.data.message : err.message));
+        }
     };
 
     return (
@@ -30,11 +38,11 @@ const Signup = () => {
                         <h2><span>Cafe</span> Mingos</h2>
                     </div>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Location</a></li>
-                        <li><a href="#">Info</a></li>
-                        <li><a href="#">Help</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/login">Login</Link></li>
+                        <li><Link to="/location">Location</Link></li>
+                        <li><Link to="/info">Info</Link></li>
+                        <li><Link to="/help">Help</Link></li>
                     </ul>
                 </nav>
             </header>
@@ -54,14 +62,14 @@ const Signup = () => {
                             required
                         />
 
-                        <label htmlFor="userId">User ID</label>
+                        <label htmlFor="usn">USN</label>
                         <input
                             type="text"
-                            id="userId"
-                            name="userId"
-                            value={formData.userId}
+                            id="usn"
+                            name="usn"
+                            value={formData.usn}
                             onChange={handleChange}
-                            placeholder="Enter your ID"
+                            placeholder="Enter your USN"
                             required
                         />
 

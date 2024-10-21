@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './styles.css';
 
@@ -35,11 +36,11 @@ const Login = () => {
                         <h2><span>Cafe</span> Mingos</h2>
                     </div>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Sign Up</a></li>
-                        <li><a href="#">Location</a></li>
-                        <li><a href="#">Info</a></li>
-                        <li><a href="#">Help</a></li>
+                    <li><Link to="/">Home</Link></li> {/* Link to Home */}
+                        <li><Link to="/signup">SignUp</Link></li> {/* Link to Login */}
+                        <li><Link to="/location">Location</Link></li> {/* Link to Location */}
+                        <li><Link to="/info">Info</Link></li> {/* Link to Info */}
+                        <li><Link to="/help">Help</Link></li> {/* Link to Help */}
                     </ul>
                 </nav>
             </header>
